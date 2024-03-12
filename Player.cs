@@ -8,7 +8,6 @@ class Player : GameObject
 
         x = newX;
         y = newY;
-        
     }
 
     ~Player()

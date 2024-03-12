@@ -1,5 +1,4 @@
-﻿
-class Engine
+﻿class Engine
 {
     public Engine()
     {
@@ -31,7 +30,6 @@ class Engine
                 if(map[y][x] == '*')
                 {
                     Instantiate(new Wall(x, y));
-                    
                 }
                 else if (map[y][x] == ' ') 
                 {
@@ -51,12 +49,9 @@ class Engine
                 else if (map[y][x] == 'G')
                 {
                     Instantiate(new Goal(x, y));
-
                 }
             }
         }
-
-
     }
 
     public void Run()
@@ -78,10 +73,10 @@ class Engine
     //    return new T();
     //}
 
-    public GameObject Instantiate(GameObject newGameObject)
+    public void Instantiate(GameObject newGameObject)
     {
         gameObjects.Add(newGameObject);
-        return newGameObject;
+       // return newGameObject;
     }
     protected void ProcessInput() 
     {

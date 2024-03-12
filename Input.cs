@@ -8,6 +8,7 @@ class Input
 
     ~Input()
     {
+
     }
 
     public struct KeyList
@@ -43,6 +44,5 @@ class Input
         return (InputMapping[buttonName].button == keyInfo.Key
             || InputMapping[buttonName].altButton == keyInfo.Key);
     }
-
 }
 
