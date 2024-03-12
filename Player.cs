@@ -1,9 +1,14 @@
 ﻿
-internal class Player : GameObject
+class Player : GameObject
 {
-    public Player()
+   
+    public Player(int newX, int newY)
     {
         shape = 'P';
+
+        x = newX;
+        y = newY;
+        
     }
 
     ~Player()
@@ -18,10 +23,29 @@ internal class Player : GameObject
     public override void Update()
     {
 
-    }
+        if(Input.GetButton("Up"))
+        {
+            y--;
+        }
+        if (Input.GetButton("Down"))
+        {
+            y++;
+        }
+        if (Input.GetButton("Left"))
+        {
+            x--;
+        }
+        if (Input.GetButton("Right"))
+        {
+            x++;
+        }
+        if (Input.GetButton("Quit"))
+        {
+            //singleton pattern
+            //engine.Stop();
+        }
 
-    public override void Render()
-    {
-
+        x = Math.Clamp(x, 0, 80);
+        y = Math.Clamp(y, 0, 80);
     }
 }

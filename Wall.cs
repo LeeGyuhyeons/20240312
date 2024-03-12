@@ -1,11 +1,14 @@
 ﻿
 internal class Wall : GameObject
 {
-    public Wall()
-    {
-        shape = 'P';
-    }
 
+    public Wall(int newX, int newY)
+    {
+        shape = '*';
+
+        x = newX;
+        y = newY;
+    }
     ~Wall()
     {
 
@@ -22,6 +25,7 @@ internal class Wall : GameObject
 
     public override void Render()
     {
+        base.Render();
 
     }
 }

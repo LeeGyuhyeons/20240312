@@ -1,11 +1,14 @@
 ﻿
 internal class Monster : GameObject
 {
-    public Monster()
+   
+    public Monster(int newX, int newY)
     {
-        shape = 'P';
-    }
+        shape = 'M';
 
+        x = newX;
+        y = newY;
+    }
     ~Monster()
     {
 
@@ -22,6 +25,7 @@ internal class Monster : GameObject
 
     public override void Render()
     {
+        base.Render();
 
     }
 }

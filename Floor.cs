@@ -1,11 +1,14 @@
 ﻿
 internal class Floor : GameObject
 {
-    public Floor()
+  
+    public Floor(int newX, int newY)
     {
-        shape = 'P';
-    }
+        shape = ' ';
 
+        x = newX;
+        y = newY;
+    }
     ~Floor()
     {
 
@@ -22,6 +25,6 @@ internal class Floor : GameObject
 
     public override void Render()
     {
-
+        //base.Render();
     }
 }

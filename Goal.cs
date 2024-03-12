@@ -1,11 +1,14 @@
 ﻿
 internal class Goal : GameObject
 {
-    public Goal()
+    
+    public Goal(int newX, int newY)
     {
-        shape = 'P';
-    }
+        shape = 'G';
 
+        x = newX;
+        y = newY;
+    }
     ~Goal()
     {
 
@@ -22,6 +25,7 @@ internal class Goal : GameObject
 
     public override void Render()
     {
+        base.Render();
 
     }
 }
