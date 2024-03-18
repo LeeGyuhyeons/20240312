@@ -1,33 +1,61 @@
 ﻿class GameObject
 {
+    public Transform transform;
+
+    public List<Component> components;
+    
     public int x;
     public int y;
+    public string name;
 
     public GameObject()
     {
-        x = 0;
-        y = 0;
+        name = "";
+        transform = new Transform();
+        components = new List<Component>();
+
+        components.Add(transform);
     }
 
-    ~GameObject()
+    public T? GetComponent<T>() where T : Component
     {
-
+        int findIndex = -1;
+        for (int i = 0; i < components.Count; ++i)
+        {
+            if(components[i] is T)
+            {
+                findIndex = i;
+                break;
+            }
+        }
+        if (findIndex > 0)
+        {
+            return (T)components[findIndex];
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    public virtual void Start()
+    public void AddComponent<T>() where T : Component, new()
     {
-
+        T newT = new T();
+        newT.gameObject = this;
+        newT.transform = transform;
+        components.Add(newT);
     }
-    public virtual void Update()
-    {
-
-    }
-
-    public virtual void Render()
-    {
-        Console.SetCursorPosition(x, y);
-        Console.Write(shape);
-    }
-
-    public char shape;
+    
+    //public void RemoveComponent<T>() where T : Component
+    //{
+    //    for (int i = 0; i < components.Count; ++i)
+    //    {
+    //        if (components[i] is T)
+    //        {
+    //            findIndex = i;
+    //            break;
+    //        }
+    //    }
+    //}
 }
+
