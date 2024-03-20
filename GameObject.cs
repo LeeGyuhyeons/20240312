@@ -4,8 +4,6 @@
 
     public List<Component> components;
     
-    public int x;
-    public int y;
     public string name;
 
     public GameObject()
@@ -38,12 +36,14 @@
         }
     }
 
-    public void AddComponent<T>() where T : Component, new()
+    public T AddComponent<T>() where T : Component, new()
     {
         T newT = new T();
         newT.gameObject = this;
         newT.transform = transform;
         components.Add(newT);
+
+        return newT;
     }
     
     //public void RemoveComponent<T>() where T : Component
