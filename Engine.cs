@@ -1,4 +1,6 @@
-﻿class Engine
+﻿using SDL2;
+
+class Engine
 {
     protected Engine()
     {
@@ -27,6 +29,13 @@
     public bool isNextLoading = false;
     public string nextSceneName = string.Empty;
 
+    public IntPtr myWindow;
+    public IntPtr myRenderer;
+    public SDL.SDL_Event myEvent;
+
+    public ulong deltaTime;
+    protected ulong lastTime;
+
     public void NextLoadScene(string _nextSceneName)
     {
         isNextLoading = true;
@@ -35,7 +44,18 @@
 
     public void Init()
     {
+        if (SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING) < 0) // 전부 초기화
+        {
+            Console.WriteLine("Init fail");
+            return;
+        }
+
+        myWindow = SDL.SDL_CreateWindow("2D Engine", 100, 100, 640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN); // "타이틀", 위치, 위치, 크기, 크기, 화면에 그리게함
+
+        myRenderer = SDL.SDL_CreateRenderer(myWindow, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC | SDL.SDL_RendererFlags.SDL_RENDERER_TARGETTEXTURE); // 화면에 그릴 붓 만들기? 그래픽 카드 기능들 PRESENTVSYNC 모니터 주파수 맞추기
+
         Input.Init();
+
     }
 
     public void Stop()
@@ -192,6 +212,10 @@
     public void Term()
     {
         gameObjects.Clear();
+
+        SDL.SDL_DestroyRenderer(myRenderer);
+        SDL.SDL_DestroyWindow(myRenderer);
+        SDL.SDL_Quit();
     }
 
     public T Instantiate<T>() where T : GameObject, new()
@@ -235,10 +259,12 @@
     }
     protected void ProcessInput()
     {
-        Input.keyInfo = Console.ReadKey();
+        SDL.SDL_PollEvent(out myEvent);
+        //Input.keyInfo = Console.ReadKey();
     }
     protected void Update()
     {
+        deltaTime = SDL.SDL_GetTicks64() - lastTime;
         foreach (GameObject gameObject in gameObjects)
         {
             foreach (Component component in gameObject.components)
@@ -246,6 +272,7 @@
                 component.Update();
             }
         }
+        lastTime = SDL.SDL_GetTicks64();
     }
     protected void Render()
     {
@@ -253,7 +280,7 @@
         //{
         //    gameObjects[i].Render();
         //}
-        Console.Clear();
+        //Console.Clear();
         foreach (GameObject gameObject in gameObjects)
         {
             Renderer? renderer = gameObject.GetComponent<Renderer>();
@@ -262,6 +289,8 @@
                 renderer.Render();
             }
         }
+
+        SDL.SDL_RenderPresent(Engine.GetInstance().myRenderer);
     }
 
     public GameObject Find(string name)

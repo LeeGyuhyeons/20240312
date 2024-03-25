@@ -1,9 +1,16 @@
 ﻿
+using SDL2;
+
 class AIController : Component
 {
+    protected ulong processTime;
+    protected ulong ElaspedTime;
+
+
     public AIController()
     {
-
+        processTime = 500;
+        ElaspedTime = 0;    
     }
 
     ~AIController()
@@ -12,16 +19,27 @@ class AIController : Component
     }
     public override void Update()
     {
+        ElaspedTime += Engine.GetInstance().deltaTime;
+
+        if(ElaspedTime < processTime)
+        {
+            
+            return;
+        }
+
+        ElaspedTime = 0;
+
         Random random = new Random();
+
         int oldX = transform.x;
         int oldY = transform.y;
 
         int NextDirection = random.Next(0, 4);
+        
+
         if (NextDirection == 0)
         {
             transform.Translate(-1, 0);
-
-     
         }
         if (NextDirection == 1)
         {

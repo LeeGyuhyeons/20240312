@@ -1,4 +1,6 @@
 ﻿
+using SDL2;
+
 class PlayerController : Component
 {
     public PlayerController()
@@ -18,7 +20,7 @@ class PlayerController : Component
         int oldX = transform.x;
         int oldY = transform.y;
         //Collider2D collider = gameObject.GetComponent<Collider2D>();
-        if (Input.GetButton("Left"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_a))
         {
             transform.Translate(-1, 0);
 
@@ -32,19 +34,19 @@ class PlayerController : Component
             //}
 
         }
-        if (Input.GetButton("Right"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_d))
         {
             transform.Translate(1, 0);
         }
-        if (Input.GetButton("Up"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_w))
         {
             transform.Translate(0, -1);
         }
-        if (Input.GetButton("Down"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_s))
         {
             transform.Translate(0, 1);
         }
-        if (Input.GetButton("Quit"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_ESCAPE))
         {
             //singleton pattern
             Engine.GetInstance().Stop();
